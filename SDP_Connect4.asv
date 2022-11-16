@@ -50,29 +50,22 @@ while true
         % Check who's turn it is
         currentPlayer = mod(turn, 2) + 1; % Corresponds to a row in players
         
-        % Place a chip (function handles drawing the scene)
-        placeChip(scene, currentBoard, currentPlayer); 
+        % Place a chip
+        placeChip(currentPlayer);
 
         % Check if the game has been won / board has been filled
-        gameOver = checkForWin(currentBoard);
+        gameOver = checkForWin();
         
         if gameOver
-            % Increment the winning player's win count
+            % Increment the winning  win count
             players(currentPlayer,3) = players(currentPlayer,3) + 1;
-            
-            % Fill the top row of the board with the player's marker
             currentBoard(1,:) = players(currentPlayer,2);
             drawScene(scene, currentBoard);
-            
-            % Display who won
             if currentPlayer == 2
                 title("Xichigan Wins")
             else
                 title("OSU Wins")
             end
-            
-            % break out of the inner loop (to not increment turn again)
-            break
         end
         % Increment turn
         turn = turn + 1;
