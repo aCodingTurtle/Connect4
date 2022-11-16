@@ -7,7 +7,7 @@ clc; clear;
 %% SimpleGameEngine setup
 
 % Initialize simpleGameEngine object with spritesheet
-scene = simpleGameEngine('Connect4Spritesheet.png',16,16,4,[250,250,250]);
+scene = simpleGameEngine('SpritesheetOSUvMichigan.png',16,16,4,[250,250,250]);
 
 % List of sprite sheet contents, can be displayed by using drawScene
 sprite_sheet_contents = [[1 2 3 4];[5 6 7 8];[9 10 11 12];[13 14 15 16]];
@@ -56,6 +56,12 @@ while true
         % Check if the game has been won / board has been filled
         gameOver = checkForWin(currentBoard);
         
+        % Game must end at turn 42 in a draw
+        if turn == 42
+            title("Draw")
+            break
+        end
+
         if gameOver
             % Increment the winning player's win count
             players(currentPlayer,3) = players(currentPlayer,3) + 1;
