@@ -54,7 +54,7 @@ while true
         placeChip(scene, currentBoard, currentPlayer); 
 
         % Check if the game has been won / board has been filled
-        gameOver = checkForWin(currentBoard);
+         gameOver = checkForWin(currentBoard,players(1,1),players(2,1));
         
         % Game must end at turn 42 in a draw
         if turn == 42
