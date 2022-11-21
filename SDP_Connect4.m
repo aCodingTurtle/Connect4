@@ -51,7 +51,7 @@ while true
         currentPlayer = mod(turn, 2) + 1; % Corresponds to a row in players
         
         % Place a chip (function handles drawing the scene)
-        placeChip(scene, currentBoard, currentPlayer); 
+        placeChip(currentBoard, players(currentPlayer,:)); 
 
         % Check if the game has been won / board has been filled
          gameOver = checkForWin(currentBoard,players(1,1),players(2,1));
