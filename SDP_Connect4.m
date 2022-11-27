@@ -110,7 +110,7 @@ while true
             
             % Display who won
             if currentPlayer == 2
-                title("Xichigan Wins")
+                title("❌ichigan Wins")
             else
                 title("OSU Wins")
             end
@@ -121,5 +121,10 @@ while true
         % Increment turn
         turn = turn + 1;
     end
-    waitForPlayAgain = input("Press enter to play again ", 's');
+    % Display that the game is over
+    ylabel("Game Over -- Press Any Key to Play Again")
+    % Wait for keyboard input to continue
+    playAgainKey = getKeyboardInput(scene);
+    % Reset the y axis label
+    ylabel("")
 end
