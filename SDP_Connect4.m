@@ -20,9 +20,6 @@ blankBoard = [
     ones(6, 7)
 ];
 
-% Current board that will be modified and then redisplayed 
-currentBoard = blankBoard;
-
 % Player variables
 % Player 1: chip sprite index, marker sprite index, win count
 % Player 2: chip sprite index, marker sprite index, win count
@@ -41,30 +38,71 @@ gameOver = false;
 
 % Outer game loop - allows the user to play again and reset the board state
 while true
-    drawScene(scene, blankBoard); 
+    % Reset the board and draw it
+    currentBoard = blankBoard;
+    drawScene(scene, currentBoard); 
+
+    % Reset the turn counter
     turn = 0;
+
+    % Reset the gameOver flag 
     gameOver = false;
+    
+    % Start marker in middle of board (displaying the marker later adds 1)
+    markerIndex = 3; 
+    
+    % Array with the top row of numbers
+    numRow = blankBoard(1,:);
+    
+    % Win count (scoreboard) along the bottom
+    xlabel(sprintf("OSU: %d | Michigan: %d",players(1,3),players(2,3)))
 
     % innner game loop - plays a game of connect 4
     while ~gameOver
-        % Check who's turn it is
-        currentPlayer = mod(turn, 2) + 1; % Corresponds to a row in players
-        
-        % Place a chip (function handles drawing the scene)
-        placeChip(currentBoard, players(currentPlayer,:)); 
-
-        % Check if the game has been won / board has been filled
-         gameOver = checkForWin(currentBoard,players(1,1),players(2,1));
-        
+        title(sprintf("Turn %d",turn+1))
         % Game must end at turn 42 in a draw
         if turn == 42
             title("Draw")
+            gameOver = true;
             break
         end
+        
+        % Check who's turn it is
+        currentPlayer = mod(turn, 2) + 1; % Corresponds to a row in players
 
-        if gameOver
+        % Put the marker onscreen 
+        currentBoard(1,:) = numRow;
+        currentBoard(1,mod(markerIndex,7)+1) = ...
+                players(currentPlayer, 2);
+        drawScene(scene, currentBoard);
+        
+        chipPlaced = false; 
+        while ~chipPlaced
+            key = getKeyboardInput(scene);
+            if strcmp(key,'leftarrow')
+                % Move the marker to the left and wrap around at 7 and 0
+                markerIndex = markerIndex - 1;
+            elseif strcmp(key,'rightarrow')
+                % Move the marker to the right and wrap around at 7 and 0
+                markerIndex = markerIndex + 1;
+            elseif strcmp(key,'space')
+                [chipPlaced, currentBoard] = placeChip(currentBoard, ...
+                    players(currentPlayer,:));
+            end
+            currentBoard(1,:) = numRow;
+            currentBoard(1,mod(markerIndex,7)+1) = ...
+                players(currentPlayer, 2);
+            drawScene(scene, currentBoard);
+        end
+
+        % Check if the game has been won / board has been filled
+        % gameOver = checkForWin(currentBoard,players(1,1),players(2,1));
+
+        if false%gameOver
             % Increment the winning player's win count
             players(currentPlayer,3) = players(currentPlayer,3) + 1;
+            xlabel(sprintf("OSU: %d | Michigan: %d", ...
+                players(1,3),players(2,3)))
             
             % Fill the top row of the board with the player's marker
             currentBoard(1,:) = players(currentPlayer,2);
