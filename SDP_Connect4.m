@@ -57,7 +57,7 @@ while true
     % Win count (scoreboard) along the bottom
     xlabel(sprintf("OSU: %d | Michigan: %d",players(1,3),players(2,3)))
 
-    % innner game loop - plays a game of connect 4
+    % Innner game loop - plays a game of connect 4
     while ~gameOver
         title(sprintf("Turn %d",turn+1))
         % Game must end at turn 42 in a draw
@@ -96,9 +96,9 @@ while true
         end
 
         % Check if the game has been won / board has been filled
-        % gameOver = checkForWin(currentBoard,players(1,1),players(2,1));
+        gameOver = checkForWin(currentBoard,players(1,1),players(2,1));
 
-        if false%gameOver
+        if gameOver
             % Increment the winning player's win count
             players(currentPlayer,3) = players(currentPlayer,3) + 1;
             xlabel(sprintf("OSU: %d | Michigan: %d", ...
@@ -115,7 +115,7 @@ while true
                 title("OSU Wins")
             end
             
-            % break out of the inner loop (to not increment turn again)
+            % Break out of the inner loop (to not increment turn again)
             break
         end
         % Increment turn
