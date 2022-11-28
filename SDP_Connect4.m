@@ -60,6 +60,7 @@ while true
     % Innner game loop - plays a game of connect 4
     while ~gameOver
         title(sprintf("Turn %d",turn+1))
+        
         % Game must end at turn 42 in a draw
         if turn == 42
             title("Draw")
@@ -115,16 +116,20 @@ while true
                 title("OSU Wins")
             end
             
-            % Break out of the inner loop (to not increment turn again)
+            % Break out of the inner loop
             break
         end
         % Increment turn
         turn = turn + 1;
     end
+    
     % Display that the game is over
     ylabel("Game Over -- Press Any Key to Play Again")
+    
     % Wait for keyboard input to continue
     playAgainKey = getKeyboardInput(scene);
+    
     % Reset the y axis label
     ylabel("")
+
 end
