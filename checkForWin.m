@@ -1,10 +1,13 @@
-%Check for Win Function
-%Checks for every type of connect4
 function [gameOver] = checkForWin(currentBoard, chip1, chip2)
+%checkForWin checks the board to see if the game has been won
+% currentBoard: The current board variable (with sprite numbers)
+% chip1: Sprite number for player 1's chip 
+% chip2: Sprite number for player 2's chip
+% gameOver: True if the game is over, False if no connect-4s are detected
 
 gameOver = false;
 
-% Horizontal Check
+% Horizontal Check -
 for Row = 2:7
     for Column = 1:4
         if chip1 == currentBoard(Row, Column) && ...
@@ -22,7 +25,7 @@ for Row = 2:7
 end
 
 
-%Vertical Check
+% Vertical Check |
 for Row = 2:4
     for Column = 1:7
         if chip1 == currentBoard(Row, Column) && ...
