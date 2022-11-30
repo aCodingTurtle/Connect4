@@ -1,3 +1,5 @@
+%Check for Win Function
+%Checks for every type of connect4
 function [gameOver] = checkForWin(currentBoard, chip1, chip2)
 
 gameOver = false;
